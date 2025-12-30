@@ -1,8 +1,7 @@
 #!/bin/bash
 
-# Ensure all sibling .sh files are executable (useful after Drive/Git sync)
-SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-chmod +x "$SCRIPT_DIR"/*.sh 2>/dev/null || true
+# Ensure this script is executable 
+# chmod +x ./run-tabicl-stage1.sh
 
 # FlexAI training requires a requirements file to exist in the repository referenced by
 # --repository-url. The TabICL repo only ships a pyproject.toml, so we use the FlexAI
