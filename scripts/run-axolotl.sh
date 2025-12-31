@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Ensure this script is executable 
-# chmod +x ./run-ultralytics-yolo.sh
+# chmod +x ./run-axolotl.sh
 
 HF_TOKEN="paste-ur-token-here"
 
