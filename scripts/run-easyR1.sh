@@ -2,10 +2,6 @@
 # Ensure this script is executable 
 # chmod +x ./run-easyR1.sh
 
-# Ensure all sibling .sh files are executable (useful after Drive/Git sync)
-SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-chmod +x "$SCRIPT_DIR"/*.sh 2>/dev/null || true
-
 # EasyR1 (showcased in flexaihq/blueprints/experiments/easyR1)
 # Reference: https://github.com/flexaihq/blueprints/blob/main/experiments/easyR1/README.md
 
