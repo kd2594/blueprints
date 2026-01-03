@@ -1,6 +1,18 @@
 #!/bin/bash
+
 # Ensure this script is executable 
 # chmod +x ./run-easyR1.sh
+
+# Install FlexAI CLI if not already installed
+if command -v flexai >/dev/null 2>&1; then
+  echo "FlexAI CLI is already installed"
+else
+  echo "Installing FlexAI CLI..."
+  curl -fsSL https://cli.flex.ai/install.sh | sh
+fi
+
+# Ensure FlexAI CLI is in PATH for current session and future sessions
+export PATH="/home/flexai/.flexai/bin:$PATH" && echo "Current shell: $SHELL" && command -v flexai && flexai --version && for f in "$HOME/.bashrc" "$HOME/.profile"; do [ -f "$f" ] || continue; grep -q '/home/flexai/.flexai/bin' "$f" || printf '\n# FlexAI CLI\nexport PATH="/home/flexai/.flexai/bin:$PATH"\n' >> "$f"; done && echo "Persisted in: $(grep -l '/home/flexai/.flexai/bin' $HOME/.bashrc $HOME/.profile 2>/dev/null | tr '\n' ' ')"
 
 # EasyR1 (showcased in flexaihq/blueprints/experiments/easyR1)
 # Reference: https://github.com/flexaihq/blueprints/blob/main/experiments/easyR1/README.md
