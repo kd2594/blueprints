@@ -5,6 +5,7 @@ base_model: Qwen/Qwen2.5-7B
 
 datasets:
 - path: legmlai/openhermes-fr
+  split: train[:0.1%]
   type:
     system_prompt: ''
     field_instruction: prompt
@@ -14,9 +15,11 @@ datasets:
 dataset_prepared_path:
 val_set_size: 0.05
 output_dir: /output-checkpoint
-max_samples: 1000
+#max_samples: 1000
 
-sequence_len: 2048
+# Fallback: change dataset to https://huggingface.co/datasets/mrfakename/identity and make lsequnce  less
+
+sequence_len: 2048 #100
 sample_packing: true
 eval_sample_packing: true
 
