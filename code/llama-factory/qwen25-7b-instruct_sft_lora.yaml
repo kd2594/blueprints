@@ -1,0 +1,65 @@
+---
+### model
+model_name_or_path: Qwen/Qwen2.5-7B-Instruct
+trust_remote_code: true
+
+### method
+stage: sft
+do_train: true
+finetuning_type: lora
+
+# ❌ DeepSpeed REMOVED
+# deepspeed: code/llama-factory/ds_z3_config.json
+
+# LoRA configuration
+lora_rank: 8
+lora_alpha: 16
+lora_dropout: 0.05
+lora_target: all   # let LlamaFactory select attention/MLP modules
+
+### dataset
+dataset: openhermes-fr
+dataset_dir: code/llama-factory/data
+template: qwen
+cutoff_len: 2048
+max_samples: 100000
+overwrite_cache: true
+preprocessing_num_workers: 16
+dataloader_num_workers: 4
+
+### output
+output_dir: /output-checkpoint
+logging_steps: 10
+
+# Save fewer, smaller checkpoints
+save_steps: 2000
+save_total_limit: 2
+save_only_model: true   # ✅ LoRA adapters only (NO optimizer / ZeRO state)
+
+plot_loss: true
+overwrite_output_dir: true
+report_to: tensorboard  # choices: [none, wandb, tensorboard, swanlab, mlflow]
+
+# Expected disk usage:
+# du -sh /output-checkpoint/*
+# ~120M checkpoint-2000
+# ~130M checkpoint-4000
+# Total < 300 MB
+
+### train
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 2
+learning_rate: 2.0e-4   # Correct LR for LoRA
+num_train_epochs: 3.0
+lr_scheduler_type: cosine
+warmup_ratio: 0.1
+bf16: true
+ddp_timeout: 180000000
+resume_from_checkpoint:
+
+### eval
+# eval_dataset: alpaca_en_demo
+# val_size: 0.1
+# per_device_eval_batch_size: 1
+# eval_strategy: steps
+# eval_steps: 500
