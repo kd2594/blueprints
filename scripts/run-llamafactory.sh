@@ -92,17 +92,14 @@ flexai training run "qwen25-7b-all-${RUN_UUID}"  \
   --checkpoint "hf-ckpt-${RESOURCE_NAME}" \
   --requirements-path code/llama-factory/requirements.txt \
   --dataset "openhermes-fr" \
-  #-- /layers/flexai_pip-install/packages/bin/llamafactory-cli train code/llama-factory/qwen25-prefetched_all_sft.yaml save_strategy=steps save_steps=50000
-  -- /layers/flexai_pip-install/packages/bin/llamafactory-cli train code/llama-factory/qwen25-7B_sft.yaml 
+  -- /layers/flexai_pip-install/packages/bin/llamafactory-cli train code/llama-factory/qwen25-prefetched_all_sft.yaml save_strategy=steps save_steps=50000
+  #-- /layers/flexai_pip-install/packages/bin/llamafactory-cli train code/llama-factory/qwen25-7B_sft.yaml 
 
 : <<'COMMENT'
 
-Current script is failing with checkpoint size disk space issue 
+Current script from blueprint https://github.com/flexaihq/blueprints/blob/main/experiments/llama-factory/README.md is failing with checkpoint size disk space issue 
 
-save_steps: 50000 (in run-llamafactory-chkpoint.sh)
-
-Controls checkpoint saving frequency during training
-Saves a checkpoint every 50,000 training steps
+With save_steps: 50000, fune-tuning succeeds as it controls checkpoint saving frequency by saving a checkpoint every 50,000 training steps. 
 Useful for long runs to prevent losing progress and manage disk space
 Related to training duration/iterations, not dataset size
 
